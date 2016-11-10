@@ -1,5 +1,7 @@
 /// <reference path="../node_modules/babylonjs/babylon.d.ts" />
 
+import {Room} from "./room";
+
 function createScene(engine: BABYLON.Engine, canvas: HTMLCanvasElement) {
 	var scene = new BABYLON.Scene(engine);
 	var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, - 10), scene);
@@ -10,12 +12,13 @@ function createScene(engine: BABYLON.Engine, canvas: HTMLCanvasElement) {
 	var sphere = BABYLON.Mesh.CreateSphere("sphere1", 16, 2, scene);
 	sphere.position.y = 1;
 
-	var ground = BABYLON.Mesh.CreateGround("ground1", 6, 6, 2, scene);
+	var ground = BABYLON.Mesh.CreateGround("tablero", 6, 6, 2, scene);
 	return scene;
 }
 
 
 function main() {
+	var air = window["AirConsole"].call();
 	var canvas = <HTMLCanvasElement>document.getElementById("canvas");
 	var engine = new BABYLON.Engine(canvas, true);
 	var scene = createScene(engine, canvas);

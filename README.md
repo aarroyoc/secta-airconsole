@@ -7,5 +7,13 @@ To build:
 
 sudo apt install nodejs nodejs-legacy npm
 npm install --global gulp-cli
-npm install --global typescript
 npm install
+gulp
+cd www
+http-server
+xdg-open http://www.airconsole.com/simulator/#debug:http://192.168.0.157:8080
+
+
+## DESPUES DEL CONCURSO
+
+Portar el juego a Google Play (Chromecast)

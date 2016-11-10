@@ -14,7 +14,9 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
-    "babylonjs": "^2.4.1"
+    "babylonjs": "^2.4.1",
+    "phaser": "^2.6.2",
+    "typescript": "^2.0.8"
   },
   "devDependencies": {
     "gulp": "^3.9.1",

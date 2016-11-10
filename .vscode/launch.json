@@ -1,0 +1,20 @@
+{
+    "version": "0.1.0",
+    "configurations": [
+        {
+            "name": "Launch screen.html ",
+            "type": "chrome",
+            "request": "launch",
+            "url" : "http://127.0.0.1:8080/screen.html",
+            "webRoot" : "${workspaceRoot}/www",
+            "userDataDir": "${workspaceRoot}/.vscode/chrome"
+        },{
+            "name" : "Launch controller.html",
+            "type" : "chrome",
+            "request" : "launch",
+            "url" : "http://127.0.0.1:8080/controller.html",
+            "webRoot" : "${workspaceRoot}/www",
+            "userDataDir" : "${workspaceRoot}/.vscode/chrome"
+        }
+    ]
+}
