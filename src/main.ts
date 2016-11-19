@@ -1,6 +1,8 @@
 /// <reference path="../node_modules/babylonjs/babylon.d.ts" />
 
-import {Room} from "./room";
+declare function AirConsole(): void;
+
+import { Room } from "./room";
 
 function createScene(engine: BABYLON.Engine, canvas: HTMLCanvasElement) {
 	var scene = new BABYLON.Scene(engine);
@@ -18,7 +20,7 @@ function createScene(engine: BABYLON.Engine, canvas: HTMLCanvasElement) {
 
 
 function main() {
-	var air = window["AirConsole"].call();
+	var air = new AirConsole();
 	var canvas = <HTMLCanvasElement>document.getElementById("canvas");
 	var engine = new BABYLON.Engine(canvas, true);
 	var scene = createScene(engine, canvas);

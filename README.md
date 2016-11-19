@@ -17,3 +17,7 @@ xdg-open http://www.airconsole.com/simulator/#debug:http://192.168.0.157:8080
 ## DESPUES DEL CONCURSO
 
 Portar el juego a Google Play (Chromecast)
+
+Abrir Visual Studio Code
+Abrir Node.js Shell
+Abrir Npm shell
