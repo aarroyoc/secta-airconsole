@@ -43,7 +43,17 @@ gulp.task("phaser", function () {
 		.pipe(gulp.dest("./www/"));
 });
 
-gulp.task("default", ["pack", "html", "css", "babylon", "phaser"], function () {
+gulp.task("data", function () {
+	return gulp.src("./data/*")
+		.pipe(gulp.dest("./www/data/"))
+});
+
+gulp.task("controller-js", function () {
+	return gulp.src("./controller.js")
+		.pipe(gulp.dest("./www/"));
+})
+
+gulp.task("default", ["pack", "html", "css", "babylon", "phaser", "data", "controller-js"], function () {
 
 
 });

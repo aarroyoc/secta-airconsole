@@ -20,4 +20,6 @@ Portar el juego a Google Play (Chromecast)
 
 Abrir Visual Studio Code
 Abrir Node.js Shell
-Abrir Npm shell
+Abrir Git shell
+
+Gulp + http-server
