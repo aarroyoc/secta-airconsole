@@ -24,7 +24,7 @@ Abrir Git shell
 
 Gulp + http-server
 
-AirConsole Ads
+AirConsole Ads is now required
 
 PrintRoom dispo to Debug
 SystemJS

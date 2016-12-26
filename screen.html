@@ -5,13 +5,22 @@
 	<meta charset="utf-8" />
 	<title>SECTA</title>
 	<script src="babylon.js"></script>
-	<script type="text/javascript" src="https://www.airconsole.com/api/airconsole-1.6.0.js"></script>
+	<!-- <script type="text/javascript" src="https://www.airconsole.com/api/airconsole-1.6.0.js"></script> -->
 	<link rel="stylesheet" href="main.css" />
+	<script type="text/javascript" src="system.js"></script>
 </head>
 
 <body>
 	<canvas id="canvas"></canvas>
 	<script src="main.js"></script>
+	<script>
+		SystemJS.config({
+			baseURL: "/"
+		});
+		SystemJS.import("main").then(function () {
+			//
+		});
+	</script>
 </body>
 
 </html>

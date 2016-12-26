@@ -3,6 +3,7 @@
 declare function AirConsole(): void;
 
 import { Room } from "./room";
+import { Table } from "./table";
 
 function createScene(engine: BABYLON.Engine, canvas: HTMLCanvasElement) {
 	var scene = new BABYLON.Scene(engine);
@@ -20,7 +21,7 @@ function createScene(engine: BABYLON.Engine, canvas: HTMLCanvasElement) {
 
 
 function main() {
-	var air = new AirConsole();
+	//var air = new AirConsole();
 	var canvas = <HTMLCanvasElement>document.getElementById("canvas");
 	var engine = new BABYLON.Engine(canvas, true);
 	var scene = createScene(engine, canvas);
@@ -30,8 +31,11 @@ function main() {
 	window.addEventListener("resize", () => {
 		engine.resize();
 	});
+	var table = new Table(scene);
+	table.printTablero();
 }
 
 window.addEventListener("DOMContentLoaded", () => {
+	console.log("Mastin de Jade - The individual has always had to struggle to keep from being overwhelmed by the tribe. If you try it, you will be lonely often, and sometimes frightened. But no price is too high to pay for the privilege of owning yourself. [F. Nietzsche]");
 	main();
 });

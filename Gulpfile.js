@@ -15,11 +15,6 @@ gulp.task("compile", function () {
 
 gulp.task("pack", ["compile"], function () {
 	return gulp.src("./build/main.js")
-		.pipe(webpack({
-			output: {
-				filename: "main.js"
-			}
-		}))
 		.pipe(gulp.dest("./www/"));
 });
 
@@ -51,9 +46,14 @@ gulp.task("data", function () {
 gulp.task("controller-js", function () {
 	return gulp.src("./controller.js")
 		.pipe(gulp.dest("./www/"));
-})
+});
 
-gulp.task("default", ["pack", "html", "css", "babylon", "phaser", "data", "controller-js"], function () {
+gulp.task("system-js", function () {
+	return gulp.src("./node_modules/systemjs/dist/system.js")
+		.pipe(gulp.dest("./www"));
+});
+
+gulp.task("default", ["pack", "html", "css", "babylon", "phaser", "data", "controller-js", "system-js"], function () {
 
 
 });

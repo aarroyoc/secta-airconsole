@@ -4,12 +4,13 @@ import { Room, CenterRoom } from "./room";
 import { VisionRoom } from "./visionRoom";
 import { FinalRoom } from "./finalRoom";
 
-import utils from "./utils";
+import { shuffleInPlace } from "./utils";
 
 export class Table {
     private tablero: Array<Array<Room>>;
     private scene: BABYLON.Scene;
     constructor(scene: BABYLON.Scene) {
+        this.tablero = new Array;
         this.scene = scene;
         this.genTablero();
     }
@@ -27,6 +28,17 @@ export class Table {
     private isNearRoom(i: number, j: number): boolean {
         return !(this.isFarRoom(i, j) || this.isCentralRoom(i, j));
     }
+    public printTablero() {
+        var buffer = "";
+        for (var i = 0; i < this.tablero.length; i++) {
+            for (var j = 0; j < this.tablero[i].length; j++) {
+                console.dir(this.tablero[i]);
+                buffer += " " + this.tablero[i][j].msg();
+            }
+            buffer += "|";
+        }
+        console.log(buffer);
+    }
     private genTablero() {
         var placedVision = false;
         var placedRoom25 = false;
@@ -36,11 +48,11 @@ export class Table {
         var rooms = [];
 
         // ONLY FOR TESTING
-        for (var i = 0; i < 22; i++) {
+        for (var i = 0; i < 25; i++) {
             rooms.push(new Room("Room" + i, this.scene));
         }
 
-        utils.shuffleInPlace(rooms);
+        shuffleInPlace(rooms);
 
         for (var i = 0; i < 5; i++) {
             this.tablero[i] = new Array;
@@ -48,11 +60,12 @@ export class Table {
                 if (this.isCentralRoom(i, j)) {
                     // Generar habitacion central
                     this.tablero[i][j] = new CenterRoom(this.scene);
-                }
-                if (this.isFarRoom(i, j)) {
+                } else {
                     this.tablero[i][j] = rooms.pop();
-
                 }
+                //if (this.isFarRoom(i, j)) {
+                //this.tablero[i][j] = rooms.pop();
+                /*}
                 if (this.isNearRoom(i, j)) {
                     // Generar habitacion de interior
                     var room: Room = rooms.pop();
@@ -61,7 +74,7 @@ export class Table {
                         room = rooms.pop();
                     }
                     this.tablero[i][j] = room;
-                }
+                }*/
             }
         }
     }
