@@ -12,4 +12,17 @@ export class Character {
     moveTo(x: number, y: number) {
 
     }
+    // Acciones del controlador
+    push() {
+
+    }
+    lookAt() {
+
+    }
+    reArrange() {
+
+    }
+    getTo() {
+
+    }
 }

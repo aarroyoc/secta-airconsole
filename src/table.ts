@@ -56,16 +56,15 @@ export class Table {
 
         for (var i = 0; i < 5; i++) {
             this.tablero[i] = new Array;
+            // Este sistema puede fallar... FIXIT
             for (var j = 0; j < 5; j++) {
                 if (this.isCentralRoom(i, j)) {
                     // Generar habitacion central
                     this.tablero[i][j] = new CenterRoom(this.scene);
-                } else {
+                }
+                if (this.isFarRoom(i, j)) {
                     this.tablero[i][j] = rooms.pop();
                 }
-                //if (this.isFarRoom(i, j)) {
-                //this.tablero[i][j] = rooms.pop();
-                /*}
                 if (this.isNearRoom(i, j)) {
                     // Generar habitacion de interior
                     var room: Room = rooms.pop();
@@ -74,7 +73,7 @@ export class Table {
                         room = rooms.pop();
                     }
                     this.tablero[i][j] = room;
-                }*/
+                }
             }
         }
     }

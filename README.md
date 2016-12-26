@@ -27,4 +27,6 @@ Gulp + http-server
 AirConsole Ads is now required
 
 PrintRoom dispo to Debug
+Personajes cilindros
+Acciones en Controller
 SystemJS
