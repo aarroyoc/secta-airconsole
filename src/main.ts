@@ -11,11 +11,11 @@ function createScene(engine: BABYLON.Engine, canvas: HTMLCanvasElement) {
 	camera.setTarget(BABYLON.Vector3.Zero());
 	camera.attachControl(canvas, false);
 
-	/*var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
-	var sphere = BABYLON.Mesh.CreateSphere("sphere1", 16, 2, scene);
+	var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
+	/*var sphere = BABYLON.Mesh.CreateSphere("sphere1", 16, 2, scene);
 	sphere.position.y = 1;*/
 
-	var ground = BABYLON.Mesh.CreateGround("tablero", 6, 6, 2, scene);
+	//var ground = BABYLON.Mesh.CreateGround("tablero", 6, 6, 2, scene);
 	return scene;
 }
 
@@ -32,7 +32,7 @@ function main() {
 		engine.resize();
 	});
 	var table = new Table(scene);
-	table.printTablero();
+	//table.printTablero();
 }
 
 window.addEventListener("DOMContentLoaded", () => {

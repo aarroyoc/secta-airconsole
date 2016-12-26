@@ -13,6 +13,11 @@ export class Table {
         this.tablero = new Array;
         this.scene = scene;
         this.genTablero();
+        for (var i = 0; i < 5; i++) {
+            for (var j = 0; j < 5; j++) {
+                this.tablero[i][j].moveRoom(i, j);
+            }
+        }
     }
     private isCentralRoom(i: number, j: number): boolean {
         return (i === 2 && j === 2);

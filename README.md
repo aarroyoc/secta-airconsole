@@ -26,7 +26,9 @@ Gulp + http-server
 
 AirConsole Ads is now required
 
-PrintRoom dispo to Debug
+PrintRoom dispo to Debug - DONE
+Set Perfect Camera - Room Position
+Camera Animation
 Personajes cilindros
 Acciones en Controller
 SystemJS
