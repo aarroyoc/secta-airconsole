@@ -13,11 +13,12 @@ export class Table {
         this.tablero = new Array;
         this.scene = scene;
         this.genTablero();
-        for (var i = 0; i < 5; i++) {
-            for (var j = 0; j < 5; j++) {
-                this.tablero[i][j].moveRoom(i, j);
+        for (var i = -2; i < 3; i++) {
+            for (var j = -2; j < 3; j++) {
+                this.tablero[i + 2][j + 2].moveRoom(i, j);
             }
         }
+        this.tablero[2][2].flip();
     }
     private isCentralRoom(i: number, j: number): boolean {
         return (i === 2 && j === 2);
@@ -53,7 +54,7 @@ export class Table {
         var rooms = [];
 
         // ONLY FOR TESTING
-        for (var i = 0; i < 25; i++) {
+        for (var i = 0; i < 24; i++) {
             rooms.push(new Room("Room" + i, this.scene));
         }
 

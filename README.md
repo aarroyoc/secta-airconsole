@@ -11,7 +11,7 @@ npm install
 gulp
 cd www
 http-server
-xdg-open http://www.airconsole.com/simulator/#debug:http://192.168.0.157:8080
+xdg-open http://www.airconsole.com/simulator/#debug:http://192.168.0.157:8080/ (importante la barra del final)
 
 
 ## DESPUES DEL CONCURSO
@@ -28,6 +28,8 @@ AirConsole Ads is now required
 
 PrintRoom dispo to Debug - DONE
 Set Perfect Camera - Room Position
+Disable FreeCamera
+Controller Loop
 Camera Animation
 Personajes cilindros
 Acciones en Controller
