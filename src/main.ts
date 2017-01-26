@@ -5,8 +5,10 @@ declare function FontFace(name: string, css: string): void;
 
 import { Room } from "./room";
 import { Table } from "./table";
-import { Character, CharacterType } from "./character";
+import { Character, CharacterType, CharacterPosition } from "./character";
+import { shuffleInPlace } from "./utils";
 
+var players = new Array;
 
 function createScene(engine: BABYLON.Engine, canvas: HTMLCanvasElement) {
 	var scene = new BABYLON.Scene(engine);
@@ -74,17 +76,31 @@ function main() {
 			if (connected_controllers.length >= 4) {
 				air.setActivePlayers(4);
 				// START GAME!!
+				ui.dispose();
+				scene.stopAnimation(camera);
+				camera.setTarget(BABYLON.Vector3.Zero());
+				camera.lockedTarget = BABYLON.Vector3.Zero();
+
+				var colors = ["red", "green", "yellow", "blue"];
+				colors = shuffleInPlace(colors);
+
+				var positions = [CharacterPosition.TOP_LEFT, CharacterPosition.TOP_RIGHT, CharacterPosition.BOTTOM_LEFT, CharacterPosition.BOTTOM_RIGHT];
+				positions = shuffleInPlace(positions);
+
+				active_players = air.getActivePlayerDeviceIds();
+				players.push(new Character(CharacterType.ESCAPIST, "Esc1", active_players[0], positions[0], colors[0], air, scene));
+				players.push(new Character(CharacterType.SPY, "Spy1", active_players[1], positions[1], colors[1], air, scene));
+				players.push(new Character(CharacterType.ESCAPIST, "Esc2", active_players[2], positions[2], colors[2], air, scene));
+				players.push(new Character(CharacterType.SPY, "Spy2", active_players[3], positions[3], colors[3], air, scene));
+
 				air.broadcast({ id: "SHOW_MENU" });
 				//air.broadcast({ id: "SHOW_INTRO" });
-				var char1 = new Character(CharacterType.ESCAPIST, "Esc1", scene);
-				var char2 = new Character(CharacterType.SPY, "Spy1", scene);
-				var char3 = new Character(CharacterType.ESCAPIST, "Esc2", scene);
-				var char4 = new Character(CharacterType.SPY, "Spy2", scene);
 			}
 		}
 	}
 
 	air.onDisconnect = function (device) {
+		console.log(`Active Players: ${air.getActivePlayerDeviceIds().length}`);
 		if (air.getActivePlayerDeviceIds().length != 4) {
 			air.broadcast({ id: "RELOAD" });
 			window.location.reload();
@@ -99,6 +115,14 @@ function main() {
 
 		// Show message on device screen
 		//alert(data);
+		var player = players.filter((character) => {
+			if (character.device_id == from) {
+				return true;
+			} else {
+				return false;
+			}
+		})[0];
+		player.onMsg(data);
 	};
 
 }

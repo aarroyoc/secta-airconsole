@@ -3,12 +3,17 @@ var air = new AirConsole({ orientation: AirConsole.ORIENTATION_LANDSCAPE });
 
 console.dir(air);
 
+var color = "black";
+var escapist = true;
+
 air.onMessage = function (from, data) {
     if (from == AirConsole.SCREEN) {
         switch (data.id) {
             case "SHOW_MENU": gameReady(); break;
             case "RELOAD": window.location.reload(); break;
             case "SHOW_INTRO": showIntro(); break;
+            case "SET_COLOR": color = data.color; break;
+            case "SET_ROLE": escapist = (data.role == "ESCAPIST"); break;
         }
     }
 };
@@ -41,12 +46,22 @@ function gameReady() {
 
     game.add.sprite(0, 0, "background");
 
+    game.add.text(32, 32, (escapist) ? "You're an escapist" : "You're an spy", {
+        font: "16pt Arial",
+        fill: "#000"
+    });
+
+    game.add.text(96 + 32 + 64 + 96, 32, color.toUpperCase() + " character", {
+        font: "16pt Arial",
+        fill: color
+    });
+
     var look = game.add.sprite(96 + 32, 64, "look");
     look.width = 64;
     look.height = 64;
     look.inputEnabled = true;
     look.events.onInputDown.add(function () {
-        air.message(AirConsole.SCREEN, { text: "I want to look!" });
+        air.message(AirConsole.SCREEN, { id: "LOOK", text: "Hey, look!" });
     });
 
     var move = game.add.sprite(96 + 32 + 64 + 96, 64, "move");
