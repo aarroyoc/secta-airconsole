@@ -16,7 +16,7 @@
   "dependencies": {
     "babylonjs": "2.4.x",
     "phaser": "2.6.2",
-    "systemjs": "0.19.42",
+    "systemjs": "0.20.x",
     "typescript": "2.1.x"
   },
   "devDependencies": {
