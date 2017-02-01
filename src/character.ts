@@ -25,27 +25,34 @@ export class Character {
         this.device_id = device_id;
         this.color = color;
         this.air = air;
-        this.mesh = BABYLON.Mesh.CreateCylinder(name, 0.6, 0.25, 0.25, 24, 1, scene);
-        this.mesh.position.y = 0.5;
+        //this.mesh = BABYLON.Mesh.CreateCylinder(name, 0.6, 0.25, 0.25, 24, 1, scene);
+        BABYLON.SceneLoader.ImportMesh("Cuerpo", "/data/", "sectarian2.babylon", scene, (meshes, ps, skeletons) => {
+            this.mesh = <BABYLON.Mesh>meshes[0];
+            this.mesh.isVisible = true;
+            this.mesh.position.y = 0.5;
+            this.mesh.scaling.x = 0.05;
+            this.mesh.scaling.y = 0.05;
+            this.mesh.scaling.z = 0.05;
 
-        switch (position) {
-            case CharacterPosition.TOP_LEFT:
-                this.mesh.position.x = -0.25;
-                this.mesh.position.z = -0.25;
-                break;
-            case CharacterPosition.TOP_RIGHT:
-                this.mesh.position.x = 0.25;
-                this.mesh.position.z = -0.25;
-                break;
-            case CharacterPosition.BOTTOM_LEFT:
-                this.mesh.position.x = -0.25;
-                this.mesh.position.z = 0.25;
-                break;
-            case CharacterPosition.BOTTOM_RIGHT:
-                this.mesh.position.x = 0.25;
-                this.mesh.position.z = 0.25;
-                break;
-        }
+            switch (position) {
+                case CharacterPosition.TOP_LEFT:
+                    this.mesh.position.x = -0.25;
+                    this.mesh.position.z = -0.25;
+                    break;
+                case CharacterPosition.TOP_RIGHT:
+                    this.mesh.position.x = 0.25;
+                    this.mesh.position.z = -0.25;
+                    break;
+                case CharacterPosition.BOTTOM_LEFT:
+                    this.mesh.position.x = -0.25;
+                    this.mesh.position.z = 0.25;
+                    break;
+                case CharacterPosition.BOTTOM_RIGHT:
+                    this.mesh.position.x = 0.25;
+                    this.mesh.position.z = 0.25;
+                    break;
+            }
+        });
         this.sendMsg({
             id: "SET_COLOR",
             color: this.color

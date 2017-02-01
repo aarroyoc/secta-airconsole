@@ -67,14 +67,16 @@ function main() {
 	//table.printTablero();
 
 	// Event Manager - AirConsole
+	const MAX_PLAYERS = 4; // sustituir por 4 en la release
+	var turnsLeft = 15;
 	air.onConnect = function (device) {
 		var active_players = air.getActivePlayerDeviceIds();
 		var connected_controllers = air.getControllerDeviceIds();
 		console.log(`Active Players: ${active_players.length}`);
 		console.log(`Connected controllers: ${connected_controllers.length}`);
 		if (active_players.length == 0) {
-			if (connected_controllers.length >= 4) {
-				air.setActivePlayers(4);
+			if (connected_controllers.length >= MAX_PLAYERS) {
+				air.setActivePlayers(MAX_PLAYERS);
 				// START GAME!!
 				ui.dispose();
 				scene.stopAnimation(camera);
@@ -95,26 +97,33 @@ function main() {
 
 				air.broadcast({ id: "SHOW_MENU" });
 				//air.broadcast({ id: "SHOW_INTRO" });
+
+				// START LOGIC LOOP
+
+				// FIRST SET TIME LEFT
+				{
+					air.broadcast({ id: "SET_TURNS", turns: turnsLeft });
+					turnsLeft--;
+				}
+				// SELECT YOUR OPTION
+				{
+					air.broadcast({ id: "SELECT_OPTION" });
+					// WAIT UNTIL EVERYBODY HAS SELECTED AN OPTION
+
+					//air.broadcast({ id: "END_SELECT_OPTION" });
+				}
 			}
 		}
 	}
 
 	air.onDisconnect = function (device) {
 		console.log(`Active Players: ${air.getActivePlayerDeviceIds().length}`);
-		if (air.getActivePlayerDeviceIds().length != 4) {
+		if (air.getActivePlayerDeviceIds().length != MAX_PLAYERS) {
 			air.broadcast({ id: "RELOAD" });
 			window.location.reload();
 		}
 	}
 	air.onMessage = function (from, data) {
-		//console.log(from);
-		//console.log(data);
-
-		// We receive a message -> Send message back to the device
-		//air.message(from, "Full of pixels!");
-
-		// Show message on device screen
-		//alert(data);
 		var player = players.filter((character) => {
 			if (character.device_id == from) {
 				return true;

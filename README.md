@@ -34,3 +34,4 @@ Camera Animation
 Personajes cilindros
 Acciones en Controller
 SystemJS
+MANIFEST FILE CACHE
