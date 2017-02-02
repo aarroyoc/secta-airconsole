@@ -12,7 +12,7 @@ export class Room extends BABYLON.Node {
         var floorMat = new BABYLON.StandardMaterial(roomName + "_floor_mat", scene);
         //floorMat.sideOrientation = BABYLON.Mesh.DOUBLESIDE;
         floorMat.backFaceCulling = false;
-        floorMat.diffuseTexture = new BABYLON.Texture("data/red.png", this.getScene(), true, false);
+        floorMat.diffuseTexture = new BABYLON.Texture("data/Suelo.png", this.getScene(), true, false);
         //floorMat.diffuseColor = new BABYLON.Color3(1, 1, 1);
         this.floorMesh.material = floorMat;
     }

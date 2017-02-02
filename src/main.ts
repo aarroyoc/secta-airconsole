@@ -5,10 +5,11 @@ declare function FontFace(name: string, css: string): void;
 
 import { Room } from "./room";
 import { Table } from "./table";
-import { Character, CharacterType, CharacterPosition } from "./character";
-import { shuffleInPlace } from "./utils";
+import { Character, CharacterType, CharacterPosition, CharacterAction } from "./character";
+import { shuffleInPlace, delay } from "./utils";
 
-var players = new Array;
+var players: Array<Character> = new Array;
+var turnsLeft, air;
 
 function createScene(engine: BABYLON.Engine, canvas: HTMLCanvasElement) {
 	var scene = new BABYLON.Scene(engine);
@@ -27,7 +28,7 @@ function createScene(engine: BABYLON.Engine, canvas: HTMLCanvasElement) {
 
 
 function main() {
-	var air = new AirConsole();
+	air = new AirConsole();
 	var canvas = <HTMLCanvasElement>document.getElementById("canvas");
 	var engine = new BABYLON.Engine(canvas, true);
 	var scene = createScene(engine, canvas);
@@ -68,7 +69,7 @@ function main() {
 
 	// Event Manager - AirConsole
 	const MAX_PLAYERS = 4; // sustituir por 4 en la release
-	var turnsLeft = 15;
+	turnsLeft = 15;
 	air.onConnect = function (device) {
 		var active_players = air.getActivePlayerDeviceIds();
 		var connected_controllers = air.getControllerDeviceIds();
@@ -95,23 +96,7 @@ function main() {
 				players.push(new Character(CharacterType.ESCAPIST, "Esc2", active_players[2], positions[2], colors[2], air, scene));
 				players.push(new Character(CharacterType.SPY, "Spy2", active_players[3], positions[3], colors[3], air, scene));
 
-				air.broadcast({ id: "SHOW_MENU" });
-				//air.broadcast({ id: "SHOW_INTRO" });
-
-				// START LOGIC LOOP
-
-				// FIRST SET TIME LEFT
-				{
-					air.broadcast({ id: "SET_TURNS", turns: turnsLeft });
-					turnsLeft--;
-				}
-				// SELECT YOUR OPTION
-				{
-					air.broadcast({ id: "SELECT_OPTION" });
-					// WAIT UNTIL EVERYBODY HAS SELECTED AN OPTION
-
-					//air.broadcast({ id: "END_SELECT_OPTION" });
-				}
+				Turn();
 			}
 		}
 	}
@@ -134,6 +119,55 @@ function main() {
 		player.onMsg(data);
 	};
 
+}
+
+async function Turn() {
+	await delay(200);
+	air.broadcast({ id: "SHOW_MENU" });
+	//air.broadcast({ id: "SHOW_INTRO" });
+
+	// START LOGIC LOOP Un turno, una promesa
+
+	// FIRST SET TIME LEFT
+	{
+		air.broadcast({ id: "SET_TURNS", turns: turnsLeft });
+		turnsLeft--;
+	}
+	// SELECT YOUR OPTION
+	{
+		players.forEach((p) => {
+			p.nextAction[0] = CharacterAction.NOT_YET;
+			p.nextAction[1] = CharacterAction.NOT_YET;
+		});
+		air.broadcast({ id: "SELECT_OPTION_1" });
+		// WAIT UNTIL EVERYBODY HAS SELECTED AN OPTION
+		await SelectOption(0);
+		air.broadcast({ id: "END_SELECT_OPTION" });
+		air.broadcast({ id: "SELECT_OPTION_2" });
+		await SelectOption(1);
+		air.broadcast({ id: "END_SELECT_OPTION" });
+		await delay(200);
+		for (var j = 0; j < 2; j++) {
+			for (var i = 0; i < players.length; i++) {
+				await players[i].doNextAction(j); // CAMERA ZOOM
+			}
+		}
+
+	}
+	await Turn();
+}
+
+function SelectOption(i: number): Promise<any> {
+	return new Promise((resolve) => {
+		var int = setInterval(() => {
+			if (players.reduce((prev, curr) => {
+				return prev && (curr.nextAction[i] != CharacterAction.NOT_YET);
+			}, true)) {
+				clearInterval(int);
+				resolve();
+			}
+		}, 100);
+	});
 }
 
 window.addEventListener("DOMContentLoaded", () => {

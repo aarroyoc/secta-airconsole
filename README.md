@@ -12,6 +12,7 @@ gulp
 cd www
 http-server
 xdg-open http://www.airconsole.com/simulator/#debug:http://192.168.0.157:8080/ (importante la barra del final)
+Abrir herramientas de desarrollo
 
 
 ## DESPUES DEL CONCURSO
@@ -35,3 +36,4 @@ Personajes cilindros
 Acciones en Controller
 SystemJS
 MANIFEST FILE CACHE
+A veces se muestra el menú antes de recibir el color (BLACK COLORS)
