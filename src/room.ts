@@ -32,6 +32,12 @@ export class Room extends BABYLON.Node {
     canControl(): boolean {
         return true;
     }
+    title(): string {
+        return "Dummy Room";
+    }
+    img(): string {
+        return "red";
+    }
     msg(): string {
         return "A dummy room";
     }
@@ -55,7 +61,7 @@ export class Room extends BABYLON.Node {
                 if (n > 200) {
                     clearInterval(id);
                 }
-            }, 25);
+            }, 15);
         }
     }
 }
@@ -66,6 +72,9 @@ export class CenterRoom extends Room {
     }
     canControl(): boolean {
         return false;
+    }
+    title(): string {
+        return "Central Room";
     }
     msg(): string {
         return "The central room"; // MORE COMPLETE DESCRIPTION

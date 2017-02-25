@@ -91,10 +91,10 @@ function main() {
 				positions = shuffleInPlace(positions);
 
 				active_players = air.getActivePlayerDeviceIds();
-				players.push(new Character(CharacterType.ESCAPIST, "Esc1", active_players[0], positions[0], colors[0], air, scene));
-				players.push(new Character(CharacterType.SPY, "Spy1", active_players[1], positions[1], colors[1], air, scene));
-				players.push(new Character(CharacterType.ESCAPIST, "Esc2", active_players[2], positions[2], colors[2], air, scene));
-				players.push(new Character(CharacterType.SPY, "Spy2", active_players[3], positions[3], colors[3], air, scene));
+				players.push(new Character(CharacterType.ESCAPIST, "Esc1", active_players[0], positions[0], colors[0], air, table, scene));
+				players.push(new Character(CharacterType.SPY, "Spy1", active_players[1], positions[1], colors[1], air, table, scene));
+				players.push(new Character(CharacterType.ESCAPIST, "Esc2", active_players[2], positions[2], colors[2], air, table, scene));
+				players.push(new Character(CharacterType.SPY, "Spy2", active_players[3], positions[3], colors[3], air, table, scene));
 
 				Turn();
 			}
@@ -122,7 +122,7 @@ function main() {
 }
 
 async function Turn() {
-	await delay(200);
+	await delay(500);
 	air.broadcast({ id: "SHOW_MENU" });
 	//air.broadcast({ id: "SHOW_INTRO" });
 

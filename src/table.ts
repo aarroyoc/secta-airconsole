@@ -45,6 +45,12 @@ export class Table {
         }
         console.log(buffer);
     }
+
+    public getRoom(x: number, y: number): Room {
+        var x = Math.floor(x + 2.5);
+        var y = Math.floor(y + 2.5);
+        return this.tablero[x][y];
+    }
     private genTablero() {
         var placedVision = false;
         var placedRoom25 = false;

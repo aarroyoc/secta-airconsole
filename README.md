@@ -37,3 +37,13 @@ Acciones en Controller
 SystemJS
 MANIFEST FILE CACHE
 A veces se muestra el menú antes de recibir el color (BLACK COLORS)
+
+
+- Elaborar un texto de LORE y TUTORIAL
+- Elaborar una descripción para cada sala
+- Programar salas
+- Programar la acción de tirar y empujar
+- Música y efectos
+- Imágenes para cada sala
+- Anuncios
+- Game Over Screen

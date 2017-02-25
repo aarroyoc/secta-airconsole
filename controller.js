@@ -20,6 +20,7 @@ air.onMessage = function (from, data) {
             case "SELECT_OPTION_2": selectOption(2); break;
             case "END_SELECT_OPTION": selectDestroy(); break;
             case "SHOW_DIRECTION": showDirection(data.movements); break;
+            case "SHOW_ROOM_INFO": showRoomInfo(data.title, data.text, data.img); break;
             case "DEBUG": console.log(data.text); break;
         }
     }
@@ -115,7 +116,42 @@ function selectDestroy() {
     control.destroy();
 }
 
-function showDirection() {
+function showRoomInfo(title, text, img) {
+    var g = game.add.graphics(0, 0);
+    g.beginFill(0x06341c);
+    g.drawRect(40, 20, 400, 30);
+    g.endFill();
+    g.beginFill(0x0e8f4d);
+    g.drawRect(40, 50, 400, 250);
+    g.endFill();
+
+    var titleText = game.add.text(45, 25, title, {
+        font: "16pt Arial",
+        fill: "#fff"
+    });
+
+    var descText = game.add.text(145, 55, text, {
+        font: "14pt Arial",
+        fill: "#fff",
+        wordWrap: true,
+        wordWrapWidth: 250,
+    });
+    descText.inputEnabled = true;
+
+    var imgSprite = game.add.sprite(42, 55, img);
+    imgSprite.width = 100;
+    imgSprite.height = 100;
+
+    // sonido tipo Zelda
+    descText.events.onInputDown.add(function () {
+        g.destroy();
+        titleText.destroy();
+        descText.destroy();
+        imgSprite.destroy();
+    });
+}
+
+function showDirection(mov) {
     info = game.add.text(96, 64 + 64 + 16, "Select the direction of the action", {
         font: "16pt Arial",
         fill: "#fff"
@@ -124,7 +160,8 @@ function showDirection() {
     look = game.add.sprite(96 + 32, 64, "up");
     look.width = 64;
     look.height = 64;
-    look.inputEnabled = true;
+    look.inputEnabled = mov.up;
+    look.visible = mov.up;
     look.events.onInputDown.add(function () {
         air.message(AirConsole.SCREEN, { id: "SET_DIRECTION", dir: "UP" });
         resetTint();
@@ -134,7 +171,8 @@ function showDirection() {
     move = game.add.sprite(96 + 32 + 64 + 96, 64, "down");
     move.width = 64;
     move.height = 64;
-    move.inputEnabled = true;
+    move.inputEnabled = mov.down;
+    move.visible = mov.down;
     move.events.onInputDown.add(function () {
         air.message(AirConsole.SCREEN, { id: "SET_DIRECTION", dir: "DOWN" });
         resetTint();
@@ -144,7 +182,8 @@ function showDirection() {
     push = game.add.sprite(96 + 32, 64 + 64 + 64, "left");
     push.width = 64;
     push.height = 64;
-    push.inputEnabled = true;
+    push.inputEnabled = mov.left;
+    push.visible = mov.left;
     push.events.onInputDown.add(function () {
         air.message(AirConsole.SCREEN, { id: "SET_DIRECTION", dir: "LEFT" });
         resetTint();
@@ -154,7 +193,8 @@ function showDirection() {
     control = game.add.sprite(96 + 32 + 64 + 96, 64 + 64 + 64, "right");
     control.width = 64;
     control.height = 64;
-    control.inputEnabled = true;
+    control.inputEnabled = mov.right;
+    control.visible = mov.right;
     control.events.onInputDown.add(function () {
         air.message(AirConsole.SCREEN, { id: "SET_DIRECTION", dir: "RIGHT" });
         resetTint();
